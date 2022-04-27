@@ -3,8 +3,15 @@
     <HeaderComponent />
     <div class="__content">
       <div class="__wrapper__content">
-        <StateCard class="__states" title="Open" />
+        <StateCard class="__states" title="Open">
+          <CardTask />
+          <CardTask />
+          <CardTask />
+          <CardTask />
+        </StateCard>
+
         <StateCard class="__states" title="In progress" />
+
         <StateCard class="__states" title="Completed" />
       </div>
     </div>
@@ -14,10 +21,12 @@
 <script>
 import HeaderComponent from "@/components/organisms/HeaderComponent.vue";
 import StateCard from "@/components/molecules/StateCard.vue";
+import CardTask from "@/components/molecules/CardTask.vue";
 export default {
   components: {
     HeaderComponent,
     StateCard,
+    CardTask,
   },
   setup() {
     return {};
