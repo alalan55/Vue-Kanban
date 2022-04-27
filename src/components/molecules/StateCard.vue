@@ -4,7 +4,7 @@
       <span> {{ title }} </span>
     </div>
     <div class="content__state">
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@ export default {
     padding: 1.1rem;
     background: white;
     border-radius: 5px;
-    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.05);
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.05);
 
     span {
       font-weight: 600;
@@ -44,9 +44,25 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    // border: 3px solid yellow;
     height: 100%;
     overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
   }
 }
 </style>

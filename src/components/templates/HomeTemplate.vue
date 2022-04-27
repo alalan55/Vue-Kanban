@@ -3,7 +3,6 @@
     <HeaderComponent />
     <div class="__content">
       <div class="__wrapper__content">
-
         <StateCard class="__states" title="Open">
           <CardTask />
           <CardTask />
@@ -28,6 +27,9 @@ export default {
     HeaderComponent,
     StateCard,
     CardTask,
+  },
+  props: {
+    dados: { type: Array, required: true, default: undefined },
   },
   setup() {
     return {};
