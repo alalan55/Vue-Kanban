@@ -3,27 +3,54 @@
     <HeaderComponent />
     <div class="__content">
       <div class="__wrapper__content">
-        <StateCard class="__states" title="Open" color="#ffcc00">
+        <StateCard
+          class="__states drop-zone"
+          title="Open"
+          color="#ffcc00"
+          @drop="onDrop($event, 0)"
+          @dragenter.prevent
+          @dragover.prevent
+        >
           <CardTask
             v-for="(item, idx) in getList(0)"
             :key="idx"
             :cardInfo="item"
+            draggable="true"
+            @dragstart="startDrag($event, item)"
           />
         </StateCard>
 
-        <StateCard class="__states" title="In progress" color="#FF540D">
+        <StateCard
+          class="__states drop-zone"
+          title="In progress"
+          color="#FF540D"
+          @drop="onDrop($event, 1)"
+          @dragenter.prevent
+          @dragover.prevent
+        >
           <CardTask
             v-for="(item, idx) in getList(1)"
             :key="idx"
             :cardInfo="item"
+            draggable="true"
+            @dragstart="startDrag($event, item)"
           />
         </StateCard>
 
-        <StateCard class="__states" title="Completed" color="#00ff7f">
+        <StateCard
+          class="__states drop-zone"
+          title="Completed"
+          color="#00ff7f"
+          @drop="onDrop($event, 2)"
+          @dragenter.prevent
+          @dragover.prevent
+        >
           <CardTask
             v-for="(item, idx) in getList(2)"
             :key="idx"
             :cardInfo="item"
+            draggable="true"
+            @dragstart="startDrag($event, item)"
           />
         </StateCard>
       </div>
@@ -50,16 +77,30 @@ export default {
     const inProgressArray = ref([]);
     const completedArray = ref([]);
 
-    const initArrays = () => {
-      openArray.value = props.dados.filter((data) => data.state == 0);
-      inProgressArray.value = props.dados.filter((data) => data.state == 1);
-      completedArray.value = props.dados.filter((data) => data.state == 2);
-    };
     const getList = (state) => {
       return props.dados.filter((data) => data.state == state);
     };
-    initArrays();
-    return { openArray, inProgressArray, completedArray, getList };
+
+    const startDrag = (event, item) => {
+      event.dataTransfer.dropEffect = "move";
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("ItemID", item.id);
+    };
+    const onDrop = (event, list) => {
+      const ItemID = event.dataTransfer.getData("itemID");
+      const item = props.dados.find((item) => item.id == ItemID);
+      item.state = list;
+      console.log(ItemID)
+    };
+
+    return {
+      openArray,
+      inProgressArray,
+      completedArray,
+      getList,
+      startDrag,
+      onDrop,
+    };
   },
 };
 </script>
