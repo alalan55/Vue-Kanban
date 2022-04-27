@@ -89,6 +89,9 @@ export default {
     .title__state {
       cursor: pointer;
     }
+    .content__state{
+      height: 500px;
+    }
   }
 }
 </style>
