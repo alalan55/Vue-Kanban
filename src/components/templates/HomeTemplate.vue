@@ -3,7 +3,7 @@
     <HeaderComponent />
     <div class="__content">
       <div class="__wrapper__content">
-        <StateCard class="__states" title="Open">
+        <StateCard class="__states" title="Open" color="#ffcc00">
           <CardTask
             v-for="(item, idx) in getList(0)"
             :key="idx"
@@ -11,7 +11,7 @@
           />
         </StateCard>
 
-        <StateCard class="__states" title="In progress">
+        <StateCard class="__states" title="In progress" color="#FF540D">
           <CardTask
             v-for="(item, idx) in getList(1)"
             :key="idx"
@@ -19,7 +19,7 @@
           />
         </StateCard>
 
-        <StateCard class="__states" title="Completed">
+        <StateCard class="__states" title="Completed" color="#00ff7f">
           <CardTask
             v-for="(item, idx) in getList(2)"
             :key="idx"

@@ -1,6 +1,6 @@
 <template>
   <div class="state">
-    <div class="title__state">
+    <div class="title__state" :style="currentStyle">
       <span> {{ title }} </span>
     </div>
     <div class="content__state">
@@ -13,9 +13,13 @@
 export default {
   props: {
     title: { type: String, default: "Insira o título", required: true },
+    color: { type: String, default: "transparent" },
   },
-  setup() {
-    return {};
+  setup(props) {
+    const currentStyle = {
+      "border-top": `4px solid ${props.color}`,
+    };
+    return { currentStyle };
   },
 };
 </script>
@@ -28,6 +32,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
   .title__state {
     padding: 1.1rem;
     background: white;
