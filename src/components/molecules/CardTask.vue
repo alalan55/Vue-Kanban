@@ -3,19 +3,23 @@
     <div class="card__state">
       <div class="state__ball"></div>
       <div class="state__description">
-        <span>Feito</span>
+        <span>{{ states[cardInfo.state] }}</span>
       </div>
     </div>
     <div class="card__description">
-      <p>Personalizar as telas de erro do template metronic</p>
+      <p>{{ cardInfo.text }}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    cardInfo: { type: Object },
+  },
   setup() {
-    return {};
+    const states = ["A fazer", "Em progresso", "Feito"];
+    return { states };
   },
 };
 </script>

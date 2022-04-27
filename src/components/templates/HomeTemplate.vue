@@ -4,21 +4,35 @@
     <div class="__content">
       <div class="__wrapper__content">
         <StateCard class="__states" title="Open">
-          <CardTask />
-          <CardTask />
-          <CardTask />
-          <CardTask />
+          <CardTask
+            v-for="(item, idx) in getList(0)"
+            :key="idx"
+            :cardInfo="item"
+          />
         </StateCard>
 
-        <StateCard class="__states" title="In progress" />
+        <StateCard class="__states" title="In progress">
+          <CardTask
+            v-for="(item, idx) in getList(1)"
+            :key="idx"
+            :cardInfo="item"
+          />
+        </StateCard>
 
-        <StateCard class="__states" title="Completed" />
+        <StateCard class="__states" title="Completed">
+          <CardTask
+            v-for="(item, idx) in getList(2)"
+            :key="idx"
+            :cardInfo="item"
+          />
+        </StateCard>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
 import HeaderComponent from "@/components/organisms/HeaderComponent.vue";
 import StateCard from "@/components/molecules/StateCard.vue";
 import CardTask from "@/components/molecules/CardTask.vue";
@@ -31,8 +45,21 @@ export default {
   props: {
     dados: { type: Array, required: true, default: undefined },
   },
-  setup() {
-    return {};
+  setup(props) {
+    const openArray = ref([]);
+    const inProgressArray = ref([]);
+    const completedArray = ref([]);
+
+    const initArrays = () => {
+      openArray.value = props.dados.filter((data) => data.state == 0);
+      inProgressArray.value = props.dados.filter((data) => data.state == 1);
+      completedArray.value = props.dados.filter((data) => data.state == 2);
+    };
+    const getList = (state) => {
+      return props.dados.filter((data) => data.state == state);
+    };
+    initArrays();
+    return { openArray, inProgressArray, completedArray, getList };
   },
 };
 </script>
