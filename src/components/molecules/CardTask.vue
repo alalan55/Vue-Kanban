@@ -1,7 +1,14 @@
 <template>
   <div class="card">
     <div class="card__state">
-      <div class="state__ball"></div>
+      <div
+        class="state__ball"
+        :class="{
+          open: checkState(0),
+          progress: checkState(1),
+          completed: checkState(2),
+        }"
+      ></div>
       <div class="state__description">
         <span>{{ states[cardInfo.state] }}</span>
       </div>
@@ -17,9 +24,12 @@ export default {
   props: {
     cardInfo: { type: Object },
   },
-  setup() {
+  setup(props) {
     const states = ["A fazer", "Em progresso", "Feito"];
-    return { states };
+    const checkState = (state) => {
+      return props.cardInfo.state == state ? true : false;
+    };
+    return { states, checkState };
   },
 };
 </script>
@@ -58,6 +68,15 @@ export default {
         font-weight: 600;
         font-size: 0.8em;
       }
+    }
+    .completed {
+      background: $green-1;
+    }
+    .progress {
+      background: $orange-1;
+    }
+    .open {
+      background: $yellow-1;
     }
   }
 }
