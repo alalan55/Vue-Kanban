@@ -117,10 +117,16 @@ export default {
       flex-wrap: wrap;
       gap: 1.5rem;
       & > .__states {
-        flex: 1 1 400px;
+        flex: 1 1 200px;
         max-height: 100%;
       }
     }
+  }
+}
+
+@media screen and (max-width: 729px) {
+  .__content {
+    height: auto !important;
   }
 }
 </style>
