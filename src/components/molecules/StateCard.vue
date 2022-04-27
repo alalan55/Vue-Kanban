@@ -1,25 +1,39 @@
 <template>
   <div class="state">
-    <div class="title__state" :style="currentStyle">
-      <span> {{ title }} </span>
+    <div class="title__state" :style="currentStyle" @click="showItens">
+      <span> {{ title }}</span>
     </div>
-    <div class="content__state">
+    <div class="content__state" v-if="isMobile && showItensMobile">
+      <slot />
+    </div>
+    <div class="content__state" v-if="!isMobile">
       <slot />
     </div>
   </div>
 </template>
 
 <script>
+import { inject, ref } from "vue";
 export default {
   props: {
     title: { type: String, default: "Insira o título", required: true },
     color: { type: String, default: "transparent" },
   },
   setup(props) {
+    const isMobile = inject("isMobile");
+    const showItensMobile = ref(false);
     const currentStyle = {
       "border-top": `4px solid ${props.color}`,
     };
-    return { currentStyle };
+
+    const showItens = () => {
+      if (isMobile) {
+        showItensMobile.value == true
+          ? (showItensMobile.value = false)
+          : (showItensMobile.value = true);
+      }
+    };
+    return { currentStyle, isMobile, showItens, showItensMobile };
   },
 };
 </script>
@@ -45,7 +59,6 @@ export default {
     }
   }
   .content__state {
-    // border: 1px solid rgb(202, 199, 199);
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -67,6 +80,17 @@ export default {
 
     &::-webkit-scrollbar-thumb:hover {
       background: #555;
+    }
+  }
+}
+
+@media screen and (max-width: 505px) {
+  .state {
+    .title__state {
+      cursor: pointer;
+    }
+    .content__state{
+      height: 500px;
     }
   }
 }

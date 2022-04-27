@@ -108,7 +108,6 @@ export default {
 
   .__content {
     height: calc(100vh - 70px);
-    background: $grey-1;
     padding: $p-2;
     .__wrapper__content {
       height: 100%;
@@ -117,10 +116,16 @@ export default {
       flex-wrap: wrap;
       gap: 1.5rem;
       & > .__states {
-        flex: 1 1 400px;
+        flex: 1 1 200px;
         max-height: 100%;
       }
     }
+  }
+}
+
+@media screen and (max-width: 729px) {
+  .__content {
+    height: auto !important;
   }
 }
 </style>
