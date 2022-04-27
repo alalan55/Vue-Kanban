@@ -1,16 +1,19 @@
 <template>
   <div class="state">
-    <div class="title__state" :style="currentStyle">
-      <span> {{ title }} </span>
+    <div class="title__state" :style="currentStyle" @click="showItens">
+      <span> {{ title }}</span>
     </div>
-    <div class="content__state">
+    <div class="content__state" v-if="isMobile && showItensMobile">
+      <slot />
+    </div>
+    <div class="content__state" v-if="!isMobile">
       <slot />
     </div>
   </div>
 </template>
 
 <script>
-import { inject } from "vue";
+import { inject, ref } from "vue";
 export default {
   props: {
     title: { type: String, default: "Insira o título", required: true },
@@ -18,10 +21,19 @@ export default {
   },
   setup(props) {
     const isMobile = inject("isMobile");
+    const showItensMobile = ref(false);
     const currentStyle = {
       "border-top": `4px solid ${props.color}`,
     };
-    return { currentStyle, isMobile };
+
+    const showItens = () => {
+      if (isMobile) {
+        showItensMobile.value == true
+          ? (showItensMobile.value = false)
+          : (showItensMobile.value = true);
+      }
+    };
+    return { currentStyle, isMobile, showItens, showItensMobile };
   },
 };
 </script>
@@ -47,7 +59,6 @@ export default {
     }
   }
   .content__state {
-    // border: 1px solid rgb(202, 199, 199);
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -74,8 +85,10 @@ export default {
 }
 
 @media screen and (max-width: 505px) {
-  .title__state {
-    cursor: pointer;
+  .state {
+    .title__state {
+      cursor: pointer;
+    }
   }
 }
 </style>

@@ -33,5 +33,15 @@ provide("isMobile", telaMobile);
 </script>
 
 <template>
-  <HomeTemplate :dados="dados" />
+  <div class="wrapper">
+    <HomeTemplate :dados="dados" />
+  </div>
 </template>
+<style lang="scss" scoped>
+@import "@/assets/scss/colors.scss";
+@import "@/assets/scss/sizes.scss";
+.wrapper {
+  min-height: 100vh;
+  background: $grey-1;
+}
+</style>

@@ -108,7 +108,6 @@ export default {
 
   .__content {
     height: calc(100vh - 70px);
-    background: $grey-1;
     padding: $p-2;
     .__wrapper__content {
       height: 100%;

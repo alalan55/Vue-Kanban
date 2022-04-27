@@ -19,7 +19,6 @@ header {
   padding: 0 $p-2;
   display: flex;
   align-items: center;
-  .test {
-  }
+  background: white;
 }
 </style>
