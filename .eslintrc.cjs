@@ -12,6 +12,6 @@ module.exports = {
     "vue/setup-compiler-macros": true,
   },
   rules: {
-    "prettier/prettier": 0
+    // "prettier/prettier": 0
   },
 };
