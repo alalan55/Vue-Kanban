@@ -1,6 +1,6 @@
 <template>
   <header>
-    <span>Header</span>
+    <div class="test">Header component</div>
   </header>
 </template>
 
@@ -13,8 +13,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/sizes.scss";
 header {
   height: 70px;
-  border: 1px solid blue;
+  padding: 0 $p-2;
+  display: flex;
+  align-items: center;
+  .test {
+  }
 }
 </style>
