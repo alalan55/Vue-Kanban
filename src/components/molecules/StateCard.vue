@@ -10,16 +10,18 @@
 </template>
 
 <script>
+import { inject } from "vue";
 export default {
   props: {
     title: { type: String, default: "Insira o título", required: true },
     color: { type: String, default: "transparent" },
   },
   setup(props) {
+    const isMobile = inject("isMobile");
     const currentStyle = {
       "border-top": `4px solid ${props.color}`,
     };
-    return { currentStyle };
+    return { currentStyle, isMobile };
   },
 };
 </script>
@@ -68,6 +70,12 @@ export default {
     &::-webkit-scrollbar-thumb:hover {
       background: #555;
     }
+  }
+}
+
+@media screen and (max-width: 505px) {
+  .title__state {
+    cursor: pointer;
   }
 }
 </style>

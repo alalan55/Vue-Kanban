@@ -1,5 +1,12 @@
 <script setup>
-import { computed, ref, onMounted, nextTick, onBeforeUnmount } from "vue";
+import {
+  computed,
+  ref,
+  onMounted,
+  nextTick,
+  onBeforeUnmount,
+  provide,
+} from "vue";
 import HomeTemplate from "@/components/templates/HomeTemplate.vue";
 import { data } from "./mock";
 const dados = data;
@@ -21,6 +28,8 @@ const onResize = () => {
 const telaMobile = computed(() => {
   return windowWidth.value < 510 ? true : false;
 });
+
+provide("isMobile", telaMobile);
 </script>
 
 <template>
