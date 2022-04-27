@@ -73,30 +73,24 @@ export default {
     dados: { type: Array, required: true, default: undefined },
   },
   setup(props) {
-    const openArray = ref([]);
-    const inProgressArray = ref([]);
-    const completedArray = ref([]);
+    const arrayData = ref(props.dados);
 
     const getList = (state) => {
-      return props.dados.filter((data) => data.state == state);
+      return arrayData.value.filter((data) => data.state == state);
     };
 
     const startDrag = (event, item) => {
       event.dataTransfer.dropEffect = "move";
       event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("ItemID", item.id);
+      event.dataTransfer.setData("itemID", item.id);
     };
-    const onDrop = (event, list) => {
-      const ItemID = event.dataTransfer.getData("itemID");
-      const item = props.dados.find((item) => item.id == ItemID);
-      item.state = list;
-      console.log(ItemID)
+    const onDrop = (event, state) => {
+      const itemID = event.dataTransfer.getData("itemID");
+      const item = arrayData.value.find((item) => item.id == itemID);
+      item.state = state;
     };
 
     return {
-      openArray,
-      inProgressArray,
-      completedArray,
       getList,
       startDrag,
       onDrop,
