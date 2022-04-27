@@ -25,8 +25,36 @@ export default {
 @import "@/assets/scss/sizes.scss";
 .card {
   border-radius: 5px;
-  padding: .5rem;
+  padding: 1.5rem 1rem;
   background: white;
-  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.05);
+  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.11);
+  }
+
+  .card__state {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    .state__ball {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: $green-1;
+    }
+    .state__description {
+      span {
+        font-weight: 600;
+        font-size: 0.8em;
+      }
+    }
+  }
 }
 </style>

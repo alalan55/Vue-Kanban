@@ -3,6 +3,7 @@
     <HeaderComponent />
     <div class="__content">
       <div class="__wrapper__content">
+
         <StateCard class="__states" title="Open">
           <CardTask />
           <CardTask />
@@ -53,6 +54,7 @@ export default {
       gap: 1.5rem;
       & > .__states {
         flex: 1 1 400px;
+        max-height: 100%;
       }
     }
   }
