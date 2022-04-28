@@ -67,13 +67,13 @@ export default {
         emit("close");
       }, 300);
     };
-    const attTask = () =>{
-      store.EDIT_TASK(modalObject.value)
+    const attTask = () => {
+      store.EDIT_TASK(modalObject.value);
 
       setTimeout(() => {
         emit("close");
       }, 300);
-    }
+    };
 
     const isObjectEmpty = (obj) => {
       return Object.keys(obj).length === 0;
@@ -81,7 +81,7 @@ export default {
     isTaskEmpty.value = isObjectEmpty(store.$taskToEdit);
     !isTaskEmpty.value ? (modalObject.value = store.$taskToEdit) : "";
 
-    return { store, modalObject, addTask,attTask, isTaskEmpty };
+    return { store, modalObject, addTask, attTask, isTaskEmpty };
   },
 };
 </script>

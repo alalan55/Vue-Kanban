@@ -33,12 +33,12 @@ const telaMobile = computed(() => {
   return windowWidth.value < 510 ? true : false;
 });
 
-const initData = () =>{
-  data.forEach(value =>{
-    store.ADD_TASK(value)
-  })
-}
-initData()
+const initData = () => {
+  data.forEach((value) => {
+    store.ADD_TASK(value);
+  });
+};
+initData();
 provide("isMobile", telaMobile);
 </script>
 

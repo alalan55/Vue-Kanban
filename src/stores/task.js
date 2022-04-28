@@ -5,32 +5,32 @@ export const useTaskStore = defineStore({
   state: () => ({
     tasks: [],
     task: {},
-    taskToEdit: {}
+    taskToEdit: {},
   }),
   actions: {
     ADD_TASK(task) {
       this.tasks.push(task);
     },
-    ADD_TASK_TO_EDIT(task){
-        this.taskToEdit = {...task}
+    ADD_TASK_TO_EDIT(task) {
+      this.taskToEdit = { ...task };
     },
-    EDIT_TASK(task){
-        let idx = this.tasks.findIndex(obj =>{
-            return obj.id == task.id
-        })
-        this.tasks[idx] = task
+    EDIT_TASK(task) {
+      let idx = this.tasks.findIndex((obj) => {
+        return obj.id == task.id;
+      });
+      this.tasks[idx] = task;
     },
-    RESET_TASK_TO_EDIT(){
-        this.taskToEdit = {}
-    }
+    RESET_TASK_TO_EDIT() {
+      this.taskToEdit = {};
+    },
   },
   getters: {
     $tasks(state) {
       return state.tasks;
     },
-    $taskToEdit(state){
-        return state.taskToEdit
-    }
+    $taskToEdit(state) {
+      return state.taskToEdit;
+    },
   },
 });
 
