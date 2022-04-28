@@ -31,7 +31,7 @@
         </div>
 
         <div class="__close">
-          <span @click="$emit('close')"> X </span>
+          <img src="/img/icons/close-icon.svg" @click="$emit('close')" alt="Botão de fechar modal">
         </div>
       </div>
     </div>
