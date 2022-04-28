@@ -35,7 +35,7 @@
         </div>
       </div>
     </div>
-    <div class="overlay"></div>
+    <div class="overlay" @click="$emit('close')"></div>
   </div>
 </template>
 
