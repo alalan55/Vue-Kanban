@@ -68,8 +68,11 @@ export default {
       }, 300);
     };
     const attTask = () =>{
-      console.log(modalObject.value)
       store.EDIT_TASK(modalObject.value)
+
+      setTimeout(() => {
+        emit("close");
+      }, 300);
     }
 
     const isObjectEmpty = (obj) => {
