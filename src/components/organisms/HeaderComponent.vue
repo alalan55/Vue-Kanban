@@ -8,11 +8,19 @@
         <button>Nova Tarefa</button>
       </div>
     </nav>
+
+    <teleport to="body">
+      <Modal />
+    </teleport>
   </header>
 </template>
 
 <script>
+import Modal from "@/components/molecules/ModalTask.vue";
 export default {
+  components: {
+    Modal,
+  },
   setup() {
     return {};
   },
@@ -41,19 +49,18 @@ header {
         font-size: 1.3em;
       }
     }
-    .button-area{
-
-      button{
-        padding: .5rem 1rem;
+    .button-area {
+      button {
+        padding: 0.5rem 1rem;
         font-weight: 500;
         border: none;
         background: $blue-1;
         color: white;
         border-radius: 5px;
         cursor: pointer;
-        transition: .2s ease-in-out;
+        transition: 0.2s ease-in-out;
 
-        &:hover{
+        &:hover {
           background: $blue-2;
         }
       }
