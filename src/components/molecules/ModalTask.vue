@@ -3,7 +3,7 @@
     <div class="card-modal">
       <div class="content__modal">
         <div class="__title">
-          <span>Criação de nova tarefa</span>
+          <span>Criação/edição de tarefa</span>
         </div>
 
         <div class="__form">
