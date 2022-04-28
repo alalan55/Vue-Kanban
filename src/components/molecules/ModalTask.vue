@@ -3,7 +3,8 @@
     <div class="card-modal">
       <div class="content__modal">
         <div class="__title">
-          <span>Criação/edição de tarefa</span>
+          <span v-if="isTaskEmpty">Criação de tarefa</span>
+          <span v-else>Edição de tarefa</span>
         </div>
 
         <div class="__form">
