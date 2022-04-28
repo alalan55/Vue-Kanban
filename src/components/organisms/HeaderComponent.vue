@@ -5,24 +5,29 @@
         <span> Kanban Vue. </span>
       </div>
       <div class="button-area">
-        <button>Nova Tarefa</button>
+        <button @click="showModal = true">Nova Tarefa</button>
       </div>
     </nav>
 
     <teleport to="body">
-      <Modal />
+      <div class="modal__child" v-if="showModal">
+        <Modal @close="showModal = false" />
+      </div>
     </teleport>
+
   </header>
 </template>
 
 <script>
+import { ref } from "vue";
 import Modal from "@/components/molecules/ModalTask.vue";
 export default {
   components: {
     Modal,
   },
   setup() {
-    return {};
+    const showModal = ref(false);
+    return { showModal };
   },
 };
 </script>
@@ -36,6 +41,7 @@ header {
   display: flex;
   align-items: center;
   background: white;
+  position: relative;
 
   nav {
     width: 100%;
@@ -65,6 +71,10 @@ header {
         }
       }
     }
+  }
+  .modal__child {
+    position: absolute;
+    top: 0 !important;
   }
 }
 </style>
