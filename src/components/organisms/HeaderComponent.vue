@@ -10,7 +10,7 @@
     </nav>
 
     <teleport to="body">
-      <div class="modal__child" v-if="showModal">
+      <div v-if="showModal">
         <Modal @close="showModal = false" />
       </div>
     </teleport>
@@ -40,7 +40,7 @@ header {
   display: flex;
   align-items: center;
   background: white;
-  position: relative;
+  // position: relative;
 
   nav {
     width: 100%;

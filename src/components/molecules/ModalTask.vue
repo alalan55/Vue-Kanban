@@ -3,7 +3,8 @@
     <div class="card-modal">
       <div class="content__modal">
         <div class="__title">
-          <span>Criação de nova tarefa</span>
+          <span v-if="isTaskEmpty">Criação de tarefa</span>
+          <span v-else>Edição de tarefa</span>
         </div>
 
         <div class="__form">
@@ -32,7 +33,8 @@
         </div>
 
         <div class="__action">
-          <button @click="sendForm">Cadastrar</button>
+          <button @click="addTask" v-if="isTaskEmpty">Cadastrar</button>
+          <button v-else @click="attTask">Atualizar</button>
         </div>
 
         <div class="__close">
@@ -55,16 +57,31 @@ export default {
   setup(props, { emit }) {
     const store = useTaskStore();
     const modalObject = ref({});
+    const isTaskEmpty = ref(true);
 
-    const sendForm = () => {
+    const addTask = () => {
       let obj = { ...modalObject.value, id: Date.now(), state: 0 };
       store.ADD_TASK(obj);
 
       setTimeout(() => {
         emit("close");
-      }, 2000);
+      }, 300);
     };
-    return { store, modalObject, sendForm };
+    const attTask = () => {
+      store.EDIT_TASK(modalObject.value);
+
+      setTimeout(() => {
+        emit("close");
+      }, 300);
+    };
+
+    const isObjectEmpty = (obj) => {
+      return Object.keys(obj).length === 0;
+    };
+    isTaskEmpty.value = isObjectEmpty(store.$taskToEdit);
+    !isTaskEmpty.value ? (modalObject.value = store.$taskToEdit) : "";
+
+    return { store, modalObject, addTask, attTask, isTaskEmpty };
   },
 };
 </script>
