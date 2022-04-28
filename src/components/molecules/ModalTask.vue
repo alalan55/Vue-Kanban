@@ -52,13 +52,17 @@
 import { ref } from "vue";
 import { useTaskStore } from "@/stores/task";
 export default {
-  setup() {
+  setup(props, {emit}) {
     const store = useTaskStore();
     const modalObject = ref({});
 
     const sendForm = () => {
       let obj = { ...modalObject.value, id: Date.now(), state: 0 };
       store.ADD_TASK(obj);
+
+      setTimeout(() =>{
+        emit('close')
+      }, 2000)
     };
     return { store, modalObject, sendForm };
   },

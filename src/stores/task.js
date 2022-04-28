@@ -8,7 +8,6 @@ export const useTaskStore = defineStore({
     }),
     actions: {
         ADD_TASK(task) {
-            console.log('task', task)
             this.tasks.push(task)
         }
     },
