@@ -32,7 +32,8 @@
         </div>
 
         <div class="__action">
-          <button @click="sendForm">Cadastrar</button>
+          <button @click="sendForm" v-if="isTaskEmpty">Cadastrar</button>
+          <button v-else>Atualizar</button>
         </div>
 
         <div class="__close">
@@ -55,6 +56,7 @@ export default {
   setup(props, { emit }) {
     const store = useTaskStore();
     const modalObject = ref({});
+    const isTaskEmpty = ref(true);
 
     const sendForm = () => {
       let obj = { ...modalObject.value, id: Date.now(), state: 0 };
@@ -65,12 +67,13 @@ export default {
       }, 300);
     };
 
-    const isObjectEmpty = (obj) =>{
+    const isObjectEmpty = (obj) => {
       return Object.keys(obj).length === 0;
-    }
-    !isObjectEmpty(store.$taskToEdit) ? modalObject.value = store.$taskToEdit : ''
+    };
+    isTaskEmpty.value = isObjectEmpty(store.$taskToEdit);
+    !isTaskEmpty.value ? (modalObject.value = store.$taskToEdit) : "";
 
-    return { store, modalObject, sendForm };
+    return { store, modalObject, sendForm, isTaskEmpty };
   },
 };
 </script>
