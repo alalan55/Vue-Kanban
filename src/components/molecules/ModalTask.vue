@@ -62,7 +62,7 @@ export default {
 
       setTimeout(() => {
         emit("close");
-      }, 2000);
+      }, 300);
     };
     return { store, modalObject, sendForm };
   },

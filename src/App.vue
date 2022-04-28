@@ -9,10 +9,9 @@ import {
 } from "vue";
 import { useTaskStore } from "@/stores/task";
 import HomeTemplate from "@/components/templates/HomeTemplate.vue";
-// import { data } from "./mock";
+import { data } from "./mock";
 
 const store = useTaskStore();
-// const dados = data;
 const dados = store.$tasks;
 const windowWidth = ref(window.innerWidth);
 
@@ -34,6 +33,12 @@ const telaMobile = computed(() => {
   return windowWidth.value < 510 ? true : false;
 });
 
+const initData = () =>{
+  data.forEach(value =>{
+    store.ADD_TASK(value)
+  })
+}
+initData()
 provide("isMobile", telaMobile);
 </script>
 
