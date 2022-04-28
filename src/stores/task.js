@@ -22,6 +22,9 @@ export const useTaskStore = defineStore({
     $tasks(state) {
       return state.tasks;
     },
+    $taskToEdit(state){
+        return state.taskToEdit
+    }
   },
 });
 

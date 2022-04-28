@@ -64,6 +64,12 @@ export default {
         emit("close");
       }, 300);
     };
+
+    const isObjectEmpty = (obj) =>{
+      return Object.keys(obj).length === 0;
+    }
+    !isObjectEmpty(store.$taskToEdit) ? modalObject.value = store.$taskToEdit : ''
+
     return { store, modalObject, sendForm };
   },
 };

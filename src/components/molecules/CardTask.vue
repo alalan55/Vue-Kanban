@@ -34,10 +34,10 @@
     </div>
 
     <teleport to="body">
-    <div v-if="showModal">
-      <Modal @close="showModal = false" />
-    </div>
-  </teleport>
+      <div v-if="showModal">
+        <Modal @close="close" />
+      </div>
+    </teleport>
   </div>
 </template>
 
@@ -61,9 +61,13 @@ export default {
     };
     const editTask = (cardInfo) => {
       store.ADD_TASK_TO_EDIT(cardInfo);
-      showModal.value = true
+      showModal.value = true;
     };
-    return { states, checkState, editTask, showModal };
+    const close = () => {
+      store.RESET_TASK_TO_EDIT();
+      showModal.value = false;
+    };
+    return { states, checkState, editTask, showModal, close };
   },
 };
 </script>
