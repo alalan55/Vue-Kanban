@@ -1,17 +1,20 @@
 <template>
   <div class="card">
     <div class="card__state">
-      <div
-        class="state__ball"
-        :class="{
-          open: checkState(0),
-          progress: checkState(1),
-          completed: checkState(2),
-        }"
-      ></div>
-      <div class="state__description">
-        <span>{{ states[cardInfo.state] }}</span>
+      <div class="left">
+        <div
+          class="state__ball"
+          :class="{
+            open: checkState(0),
+            progress: checkState(1),
+            completed: checkState(2),
+          }"
+        ></div>
+        <div class="state__description">
+          <span>{{ states[cardInfo.state] }}</span>
+        </div>
       </div>
+      <div class="right"></div>
     </div>
 
     <div class="card__title">
@@ -63,28 +66,32 @@ export default {
     display: flex;
     gap: 0.5rem;
     align-items: center;
-
-    .state__ball {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: $green-1;
-    }
-
-    .state__description {
-      span {
-        font-weight: 600;
-        font-size: 0.6em;
+    .left {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      .state__ball {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: $green-1;
       }
-    }
-    .completed {
-      background: $green-1;
-    }
-    .progress {
-      background: $orange-1;
-    }
-    .open {
-      background: $yellow-1;
+
+      .state__description {
+        span {
+          font-weight: 600;
+          font-size: 0.6em;
+        }
+      }
+      .completed {
+        background: $green-1;
+      }
+      .progress {
+        background: $orange-1;
+      }
+      .open {
+        background: $yellow-1;
+      }
     }
   }
   .card__title {
