@@ -22,7 +22,7 @@
             <label>
               Descrição
               <textarea
-                v-model="modalObject.description"
+                v-model="modalObject.text"
                 cols="30"
                 rows="10"
                 placeholder="Insira a descrição"
@@ -57,8 +57,8 @@ export default {
     const modalObject = ref({});
 
     const sendForm = () => {
-      console.log(modalObject.value);
-      store.dispatch('ADD_TASK', modalObject.value)
+      let obj = { ...modalObject.value, id: Date.now(), state: 0 };
+      store.ADD_TASK(obj);
     };
     return { store, modalObject, sendForm };
   },

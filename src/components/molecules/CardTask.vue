@@ -13,6 +13,13 @@
         <span>{{ states[cardInfo.state] }}</span>
       </div>
     </div>
+
+    <div class="card__title">
+      <span>
+        {{cardInfo.title || 'Sem título'}}
+      </span>
+    </div>
+
     <div class="card__description">
       <p>{{ cardInfo.text }}</p>
     </div>
@@ -58,15 +65,16 @@ export default {
     align-items: center;
 
     .state__ball {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: $green-1;
     }
+   
     .state__description {
       span {
         font-weight: 600;
-        font-size: 0.8em;
+        font-size: 0.6em;
       }
     }
     .completed {
@@ -77,6 +85,11 @@ export default {
     }
     .open {
       background: $yellow-1;
+    }
+  }
+  .card__title{
+    span{
+      font-weight: 600;
     }
   }
 }
