@@ -33,8 +33,8 @@
         </div>
 
         <div class="__action">
-          <button @click="sendForm" v-if="isTaskEmpty">Cadastrar</button>
-          <button v-else>Atualizar</button>
+          <button @click="addTask" v-if="isTaskEmpty">Cadastrar</button>
+          <button v-else @click="attTask">Atualizar</button>
         </div>
 
         <div class="__close">
@@ -59,7 +59,7 @@ export default {
     const modalObject = ref({});
     const isTaskEmpty = ref(true);
 
-    const sendForm = () => {
+    const addTask = () => {
       let obj = { ...modalObject.value, id: Date.now(), state: 0 };
       store.ADD_TASK(obj);
 
@@ -67,6 +67,10 @@ export default {
         emit("close");
       }, 300);
     };
+    const attTask = () =>{
+      console.log(modalObject.value)
+      store.EDIT_TASK(modalObject.value)
+    }
 
     const isObjectEmpty = (obj) => {
       return Object.keys(obj).length === 0;
@@ -74,7 +78,7 @@ export default {
     isTaskEmpty.value = isObjectEmpty(store.$taskToEdit);
     !isTaskEmpty.value ? (modalObject.value = store.$taskToEdit) : "";
 
-    return { store, modalObject, sendForm, isTaskEmpty };
+    return { store, modalObject, addTask,attTask, isTaskEmpty };
   },
 };
 </script>
