@@ -16,7 +16,7 @@
 
     <div class="card__title">
       <span>
-        {{cardInfo.title || 'Sem título'}}
+        {{ cardInfo.title || "Sem título" }}
       </span>
     </div>
 
@@ -70,7 +70,7 @@ export default {
       border-radius: 50%;
       background: $green-1;
     }
-   
+
     .state__description {
       span {
         font-weight: 600;
@@ -87,8 +87,8 @@ export default {
       background: $yellow-1;
     }
   }
-  .card__title{
-    span{
+  .card__title {
+    span {
       font-weight: 600;
     }
   }
