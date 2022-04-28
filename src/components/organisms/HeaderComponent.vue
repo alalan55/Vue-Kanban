@@ -14,7 +14,6 @@
         <Modal @close="showModal = false" />
       </div>
     </teleport>
-
   </header>
 </template>
 

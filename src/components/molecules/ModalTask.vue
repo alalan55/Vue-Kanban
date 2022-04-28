@@ -11,13 +11,18 @@
             <label>
               Título
 
-              <input type="text" placeholder="Insira um título" />
+              <input
+                v-model="modalObject.title"
+                type="text"
+                placeholder="Insira um título"
+              />
             </label>
           </div>
           <div class="description__form">
             <label>
               Descrição
               <textarea
+                v-model="modalObject.text"
                 cols="30"
                 rows="10"
                 placeholder="Insira a descrição"
@@ -27,11 +32,15 @@
         </div>
 
         <div class="__action">
-          <button>Cadastrar</button>
+          <button @click="sendForm">Cadastrar</button>
         </div>
 
         <div class="__close">
-          <span @click="$emit('close')"> X </span>
+          <img
+            src="/img/icons/close-icon.svg"
+            @click="$emit('close')"
+            alt="Botão de fechar modal"
+          />
         </div>
       </div>
     </div>
@@ -40,9 +49,22 @@
 </template>
 
 <script>
+import { ref } from "vue";
+import { useTaskStore } from "@/stores/task";
 export default {
-  setup() {
-    return {};
+  setup(props, { emit }) {
+    const store = useTaskStore();
+    const modalObject = ref({});
+
+    const sendForm = () => {
+      let obj = { ...modalObject.value, id: Date.now(), state: 0 };
+      store.ADD_TASK(obj);
+
+      setTimeout(() => {
+        emit("close");
+      }, 2000);
+    };
+    return { store, modalObject, sendForm };
   },
 };
 </script>

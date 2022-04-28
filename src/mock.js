@@ -2,21 +2,25 @@ export const data = [
   {
     state: 0,
     text: "Tarefa Aqui",
+    title: "Teste ed titulo",
     id: 0,
   },
   {
     state: 0,
     text: "Mais uma tarefa",
+    title: "Teste ed titulo",
     id: 1,
   },
   {
     state: 0,
     text: "Outra aqui talvez",
+    title: "Teste ed titulo",
     id: 2,
   },
   {
     state: 0,
     text: "Eita, mais um cara",
+    title: "Teste ed titulo",
     id: 3,
   },
   {

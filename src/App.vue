@@ -7,9 +7,13 @@ import {
   onBeforeUnmount,
   provide,
 } from "vue";
+import { useTaskStore } from "@/stores/task";
 import HomeTemplate from "@/components/templates/HomeTemplate.vue";
-import { data } from "./mock";
-const dados = data;
+// import { data } from "./mock";
+
+const store = useTaskStore();
+// const dados = data;
+const dados = store.$tasks;
 const windowWidth = ref(window.innerWidth);
 
 onMounted(() => {
@@ -21,6 +25,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener("resize", onResize);
 });
+
 const onResize = () => {
   windowWidth.value = window.innerWidth;
 };
