@@ -84,10 +84,11 @@ export default {
       event.dataTransfer.effectAllowed = "move";
       event.dataTransfer.setData("itemID", item.id);
     };
+
     const onDrop = (event, state) => {
-      const itemID = event.dataTransfer.getData("itemID");
-      const item = arrayData.value.find((item) => item.id == itemID);
-      item.state = state;
+      const ITEM_ID = event.dataTransfer.getData("itemID");
+      const ITEM = arrayData.value.find((item) => item.id == ITEM_ID);
+      ITEM.state = state;
     };
 
     return {

@@ -1,6 +1,8 @@
 <template>
   <div class="card">
+
     <div class="card__state">
+      
       <div class="left">
         <div
           class="state__ball"
@@ -14,6 +16,7 @@
           <span>{{ states[cardInfo.state] }}</span>
         </div>
       </div>
+
       <div class="right">
         <img
           src="/img/icons/edit-icon.svg"
@@ -21,6 +24,7 @@
           @click="editTask(cardInfo)"
         />
       </div>
+      
     </div>
 
     <div class="card__title">
@@ -30,7 +34,7 @@
     </div>
 
     <div class="card__description">
-      <p>{{ cardInfo.text }}</p>
+      <p>{{ cardInfo.text || 'Sem Descrição adicionada' }}</p>
     </div>
 
     <teleport to="body">
@@ -53,16 +57,20 @@ export default {
     Modal,
   },
   setup(props) {
+
     const store = useTaskStore();
     const showModal = ref(false);
     const states = ["A fazer", "Em progresso", "Feito"];
+   
     const checkState = (state) => {
       return props.cardInfo.state == state ? true : false;
     };
+
     const editTask = (cardInfo) => {
       store.ADD_TASK_TO_EDIT(cardInfo);
       showModal.value = true;
     };
+
     const close = () => {
       store.RESET_TASK_TO_EDIT();
       showModal.value = false;
@@ -89,7 +97,7 @@ export default {
     box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.11);
   }
 
-  .card__state {
+  &__state {
     display: flex;
     gap: 0.5rem;
     align-items: center;
@@ -135,7 +143,8 @@ export default {
       }
     }
   }
-  .card__title {
+
+  &__title {
     span {
       font-weight: 600;
     }

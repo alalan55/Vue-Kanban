@@ -39,7 +39,6 @@ header {
   display: flex;
   align-items: center;
   background: white;
-  // position: relative;
 
   nav {
     width: 100%;
@@ -51,6 +50,7 @@ header {
       span {
         font-weight: 700;
         font-size: 1.3em;
+        color: $black-2;
       }
     }
     .button-area {
