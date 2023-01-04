@@ -1,10 +1,10 @@
 <template>
   <div class="home__template">
     <HeaderComponent />
-    <div class="__content">
-      <div class="__wrapper__content">
+    <div class="home__template__content">
+      <div class="home__template__content__wrapper">
         <StateCard
-          class="__states drop-zone"
+          class="states drop-zone"
           title="Open"
           color="#ffcc00"
           @drop="onDrop($event, 0)"
@@ -21,7 +21,7 @@
         </StateCard>
 
         <StateCard
-          class="__states drop-zone"
+          class="states drop-zone"
           title="In progress"
           color="#FF540D"
           @drop="onDrop($event, 1)"
@@ -38,7 +38,7 @@
         </StateCard>
 
         <StateCard
-          class="__states drop-zone"
+          class="states drop-zone"
           title="Completed"
           color="#00ff7f"
           @drop="onDrop($event, 2)"
@@ -84,10 +84,11 @@ export default {
       event.dataTransfer.effectAllowed = "move";
       event.dataTransfer.setData("itemID", item.id);
     };
+
     const onDrop = (event, state) => {
-      const itemID = event.dataTransfer.getData("itemID");
-      const item = arrayData.value.find((item) => item.id == itemID);
-      item.state = state;
+      const ITEM_ID = event.dataTransfer.getData("itemID");
+      const ITEM = arrayData.value.find((item) => item.id == ITEM_ID);
+      ITEM.state = state;
     };
 
     return {
@@ -100,32 +101,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/colors.scss";
-@import "@/assets/scss/sizes.scss";
+@import "@/assets/scss/main.scss";
 
 .home__template {
   width: 100%;
 
-  .__content {
+  &__content {
     height: calc(100vh - 70px);
     padding: $p-2;
-    .__wrapper__content {
-      height: 100%;
+    &__wrapper {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
-      & > .__states {
-        flex: 1 1 200px;
-        max-height: 100%;
+      & > .states {
+        flex: 1 1 400px;
+        height: auto;
       }
     }
-  }
-}
 
-@media screen and (max-width: 729px) {
-  .__content {
-    height: auto !important;
+    @media (max-width: 729px) {
+      height: auto;
+    }
   }
 }
 </style>

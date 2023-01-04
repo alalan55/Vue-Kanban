@@ -1,12 +1,13 @@
 <template>
   <div class="state">
-    <div class="title__state" :style="currentStyle" @click="showItens">
+    <div class="state__title" :style="currentStyle" @click="showItens">
       <span> {{ title }}</span>
     </div>
-    <div class="content__state" v-if="isMobile && showItensMobile">
+
+    <div class="state__content" v-if="isMobile && showItensMobile">
       <slot />
     </div>
-    <div class="content__state" v-if="!isMobile">
+    <div class="state__content" v-if="!isMobile">
       <slot />
     </div>
   </div>
@@ -39,15 +40,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/colors.scss";
-@import "@/assets/scss/sizes.scss";
+@import "@/assets/scss/main.scss";
 
 .state {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 
-  .title__state {
+  &__title {
     padding: 1.1rem;
     background: white;
     border-radius: 5px;
@@ -58,7 +58,7 @@ export default {
       font-size: 0.95em;
     }
   }
-  .content__state {
+  &__content {
     display: flex;
     flex-direction: column;
     gap: 1rem;

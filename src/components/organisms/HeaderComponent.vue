@@ -32,15 +32,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/colors.scss";
-@import "@/assets/scss/sizes.scss";
+@import "@/assets/scss/main.scss";
 header {
   height: 70px;
   padding: 0 $p-2;
   display: flex;
   align-items: center;
   background: white;
-  // position: relative;
 
   nav {
     width: 100%;
@@ -52,6 +50,7 @@ header {
       span {
         font-weight: 700;
         font-size: 1.3em;
+        color: $black-2;
       }
     }
     .button-area {

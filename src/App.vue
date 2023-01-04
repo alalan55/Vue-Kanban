@@ -1,12 +1,5 @@
 <script setup>
-import {
-  computed,
-  ref,
-  onMounted,
-  nextTick,
-  onBeforeUnmount,
-  provide,
-} from "vue";
+import { computed, ref, onMounted, nextTick, onBeforeUnmount, provide } from "vue";
 import { useTaskStore } from "@/stores/task";
 import HomeTemplate from "@/components/templates/HomeTemplate.vue";
 import { data } from "./mock";
@@ -48,10 +41,10 @@ provide("isMobile", telaMobile);
   </div>
 </template>
 <style lang="scss" scoped>
-@import "@/assets/scss/colors.scss";
-@import "@/assets/scss/sizes.scss";
+@import "@/assets/scss/main.scss";
 .wrapper {
   min-height: 100vh;
+  // height: auto !important;
   background: $grey-1;
 }
 </style>
