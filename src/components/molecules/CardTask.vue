@@ -73,8 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/colors.scss";
-@import "@/assets/scss/sizes.scss";
+@import "@/assets/scss/main.scss";
 .card {
   border-radius: 5px;
   padding: 1.5rem 1rem;
