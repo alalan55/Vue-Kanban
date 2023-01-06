@@ -30,6 +30,7 @@ export const useTaskStore = defineStore({
         return false;
       }
     },
+
     async GET_TASKS() {
       try {
         this.tasks = [];
@@ -40,15 +41,12 @@ export const useTaskStore = defineStore({
         console.error(error);
       }
     },
+
     ADD_TASK_TO_EDIT(task) {
       this.taskToEdit = { ...task };
     },
-    async EDIT_TASK(task) {
-      // let idx = this.tasks.findIndex((obj) => {
-      //   return obj.id == task.id;
-      // });
-      // this.tasks[idx] = task;
 
+    async EDIT_TASK(task) {
       const obj = {
         method: "PUT",
         headers: {
@@ -72,8 +70,34 @@ export const useTaskStore = defineStore({
         return false;
       }
     },
+
     RESET_TASK_TO_EDIT() {
       this.taskToEdit = {};
+    },
+    
+    async DELETE_TASK(task) {
+      const obj = {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(task),
+      };
+
+      try {
+        const req = await fetch(
+          `${import.meta.env.VITE_BASE_URL}${task.id}`,
+          obj
+        );
+        const res = await req.json();
+        if (res.status == 200) {
+          this.GET_TASKS();
+          return true;
+        }
+      } catch (error) {
+        console.error({ error: error, message: "Erro ao apagar tarefa" });
+        return false;
+      }
     },
   },
   getters: {

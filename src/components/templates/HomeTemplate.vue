@@ -74,7 +74,7 @@ export default {
     dados: { type: Array, required: true, default: undefined },
   },
   setup(props) {
-    const store = useTaskStore()
+    const store = useTaskStore();
     const arrayData = ref([...props.dados]);
 
     const getList = (state) => {
@@ -102,7 +102,7 @@ export default {
       const ITEM = arrayData.value.find((item) => item.id == ITEM_ID);
       ITEM.state = state;
 
-      store.EDIT_TASK(ITEM)
+      store.EDIT_TASK(ITEM);
     };
 
     return {
@@ -121,7 +121,7 @@ export default {
   width: 100%;
 
   &__content {
-    height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
     padding: $p-2;
     &__wrapper {
       width: 100%;
@@ -129,7 +129,7 @@ export default {
       flex-wrap: wrap;
       gap: 1.5rem;
       & > .states {
-        flex: 1 1 400px;
+        flex: 1 1 250px;
         height: auto;
       }
     }
