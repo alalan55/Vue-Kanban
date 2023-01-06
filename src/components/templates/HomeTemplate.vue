@@ -60,6 +60,7 @@
 
 <script>
 import { ref, watch } from "vue";
+import { useTaskStore } from "@/stores/task";
 import HeaderComponent from "@/components/organisms/HeaderComponent.vue";
 import StateCard from "@/components/molecules/StateCard.vue";
 import CardTask from "@/components/molecules/CardTask.vue";
@@ -73,6 +74,7 @@ export default {
     dados: { type: Array, required: true, default: undefined },
   },
   setup(props) {
+    const store = useTaskStore()
     const arrayData = ref([...props.dados]);
 
     const getList = (state) => {
@@ -99,6 +101,8 @@ export default {
       const ITEM_ID = event.dataTransfer.getData("itemID");
       const ITEM = arrayData.value.find((item) => item.id == ITEM_ID);
       ITEM.state = state;
+
+      store.EDIT_TASK(ITEM)
     };
 
     return {
