@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import HeaderComponent from "@/components/organisms/HeaderComponent.vue";
 import StateCard from "@/components/molecules/StateCard.vue";
 import CardTask from "@/components/molecules/CardTask.vue";
@@ -73,11 +73,21 @@ export default {
     dados: { type: Array, required: true, default: undefined },
   },
   setup(props) {
-    const arrayData = ref(props.dados);
+    const arrayData = ref([...props.dados]);
 
     const getList = (state) => {
       return arrayData.value.filter((data) => data.state == state);
     };
+
+    watch(
+      () => props.dados,
+      (nv) => {
+        if (nv) {
+          arrayData.value = [...nv];
+        }
+      },
+      { deep: true }
+    );
 
     const startDrag = (event, item) => {
       event.dataTransfer.dropEffect = "move";

@@ -23,10 +23,11 @@
             <label>
               Descrição
               <textarea
-                v-model="modalObject.text"
+                v-model="modalObject.description"
                 cols="30"
                 rows="10"
                 placeholder="Insira a descrição"
+                style="resize: none"
               ></textarea>
             </label>
           </div>
@@ -59,20 +60,15 @@ export default {
     const modalObject = ref({});
     const isTaskEmpty = ref(true);
 
-    const addTask = () => {
-      let obj = { ...modalObject.value, id: Date.now(), state: 0 };
-      store.ADD_TASK(obj);
+    const addTask = async () => {
+      let obj = { ...modalObject.value, state: 0 };
+      const responseIsOk = await store.ADD_TASK(obj);
 
-      setTimeout(() => {
-        emit("close");
-      }, 300);
+      if (responseIsOk) emit("close");
     };
-    const attTask = () => {
-      store.EDIT_TASK(modalObject.value);
-
-      setTimeout(() => {
-        emit("close");
-      }, 300);
+    const attTask = async () => {
+      const SUCCESS_UPDATE = await store.EDIT_TASK(modalObject.value);
+      if (SUCCESS_UPDATE) emit("close");
     };
 
     const isObjectEmpty = (obj) => {

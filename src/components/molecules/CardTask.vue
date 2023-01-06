@@ -34,7 +34,7 @@
     </div>
 
     <div class="card__description">
-      <p>{{ cardInfo.text || 'Sem Descrição adicionada' }}</p>
+      <p>{{ cardInfo.description || 'Sem Descrição adicionada' }}</p>
     </div>
 
     <teleport to="body">
