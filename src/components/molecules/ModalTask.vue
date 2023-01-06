@@ -34,8 +34,13 @@
         </div>
 
         <div class="__action">
-          <button @click="addTask" v-if="isTaskEmpty">Cadastrar</button>
-          <button v-else @click="attTask">Atualizar</button>
+          <Button
+            v-if="isTaskEmpty"
+            title="Cadastrar"
+            :loading="loading"
+            @action="addTask"
+          />
+          <Button v-else title=" Atualizar" :loading="loading" @action="attTask" />
         </div>
 
         <div class="__close">
@@ -54,17 +59,23 @@
 <script>
 import { ref } from "vue";
 import { useTaskStore } from "@/stores/task";
+import Button from "../atoms/vkButton.vue";
+
 export default {
+  components: { Button },
   setup(props, { emit }) {
     const store = useTaskStore();
     const modalObject = ref({});
     const isTaskEmpty = ref(true);
+    const loading = ref(false);
 
     const addTask = async () => {
+      loading.value = true;
       let obj = { ...modalObject.value, state: 0 };
       const responseIsOk = await store.ADD_TASK(obj);
 
       if (responseIsOk) emit("close");
+      loading.value = false;
     };
     const attTask = async () => {
       const SUCCESS_UPDATE = await store.EDIT_TASK(modalObject.value);
@@ -77,7 +88,7 @@ export default {
     isTaskEmpty.value = isObjectEmpty(store.$taskToEdit);
     !isTaskEmpty.value ? (modalObject.value = store.$taskToEdit) : "";
 
-    return { store, modalObject, addTask, attTask, isTaskEmpty };
+    return { store, modalObject, addTask, attTask, isTaskEmpty, loading };
   },
 };
 </script>
@@ -135,21 +146,6 @@ export default {
         }
       }
       .__action {
-        button {
-          color: white;
-          border: none;
-          background: $blue-1;
-          padding: 0.7rem;
-          width: 100%;
-          border-radius: 5px;
-          font-weight: 500;
-          transition: 0.2s ease-in-out;
-          cursor: pointer;
-
-          &:hover {
-            background: $blue-2;
-          }
-        }
       }
       .__close {
         position: absolute;

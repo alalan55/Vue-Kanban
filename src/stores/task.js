@@ -74,7 +74,7 @@ export const useTaskStore = defineStore({
     RESET_TASK_TO_EDIT() {
       this.taskToEdit = {};
     },
-    
+
     async DELETE_TASK(task) {
       const obj = {
         method: "DELETE",
