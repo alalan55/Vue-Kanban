@@ -1,10 +1,18 @@
 <template>
-  <div class="modal">
+  <div id="modal" class="modal" @click="closeModal($event.target)">
     <div class="card-modal">
       <div class="content__modal">
         <div class="__title">
           <span v-if="isTaskEmpty">Criação de tarefa</span>
           <span v-else>Edição de tarefa</span>
+        </div>
+
+        <div class="__close">
+          <img
+            src="/img/icons/close-icon.svg"
+            @click="$emit('close')"
+            alt="Botão de fechar modal"
+          />
         </div>
 
         <div class="__form">
@@ -42,24 +50,15 @@
           />
           <Button v-else title=" Atualizar" :loading="loading" @action="attTask" />
         </div>
-
-        <div class="__close">
-          <img
-            src="/img/icons/close-icon.svg"
-            @click="$emit('close')"
-            alt="Botão de fechar modal"
-          />
-        </div>
       </div>
     </div>
-    <div class="overlay" @click="$emit('close')"></div>
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
 import { useTaskStore } from "@/stores/task";
-import Button from "../atoms/vkButton.vue";
+import Button from "../atoms/vkButton.vue"; 
 
 export default {
   components: { Button },
@@ -81,14 +80,19 @@ export default {
       const SUCCESS_UPDATE = await store.EDIT_TASK(modalObject.value);
       if (SUCCESS_UPDATE) emit("close");
     };
-
     const isObjectEmpty = (obj) => {
       return Object.keys(obj).length === 0;
     };
+
+    const closeModal = (evt) => {
+      const id = evt.getAttribute("id");
+      if (id == "modal") emit("close");
+    };
+
     isTaskEmpty.value = isObjectEmpty(store.$taskToEdit);
     !isTaskEmpty.value ? (modalObject.value = store.$taskToEdit) : "";
 
-    return { store, modalObject, addTask, attTask, isTaskEmpty, loading };
+    return { store, modalObject, addTask, attTask, isTaskEmpty, loading, closeModal };
   },
 };
 </script>
@@ -97,18 +101,31 @@ export default {
 @import "@/assets/scss/main.scss";
 
 .modal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    opacity: 0.7;
+  }
   .card-modal {
-    position: fixed;
     z-index: 999;
-    top: 20%;
-    left: 50%;
-    margin-left: -150px;
     max-width: 800px;
+    width: 70%;
     .content__modal {
       background: white;
-      padding: 1rem;
+      padding: 2rem;
       width: 100%;
-
       border-radius: 5px;
       box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.11);
       position: relative;
@@ -149,22 +166,11 @@ export default {
       }
       .__close {
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 25px;
+        right: 25px;
         cursor: pointer;
       }
     }
-  }
-
-  .overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 99;
-    opacity: 0.5;
   }
 }
 </style>
