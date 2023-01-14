@@ -63,6 +63,7 @@ export const useTaskStore = defineStore({
         const res = await req.json();
         if (res.status == 200) {
           this.GET_TASKS();
+          this.RESET_TASK_TO_EDIT()
           return true;
         }
       } catch (error) {
