@@ -5,7 +5,7 @@
         <span> Kanban Vue. </span>
       </div>
       <div class="button-area">
-        <button @click="showModal = true">Nova Tarefa</button>
+        <Button title="Nova Tarefa" @action="showModal = true" />
       </div>
     </nav>
 
@@ -20,9 +20,11 @@
 <script>
 import { ref } from "vue";
 import Modal from "@/components/molecules/ModalTask.vue";
+import Button from "../atoms/vkButton.vue";
 export default {
   components: {
     Modal,
+    Button,
   },
   setup() {
     const showModal = ref(false);
@@ -54,20 +56,6 @@ header {
       }
     }
     .button-area {
-      button {
-        padding: 0.5rem 1rem;
-        font-weight: 500;
-        border: none;
-        background: $blue-1;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: 0.2s ease-in-out;
-
-        &:hover {
-          background: $blue-2;
-        }
-      }
     }
   }
   .modal__child {

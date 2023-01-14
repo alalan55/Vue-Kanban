@@ -2,10 +2,8 @@
 import { computed, ref, onMounted, nextTick, onBeforeUnmount, provide } from "vue";
 import { useTaskStore } from "@/stores/task";
 import HomeTemplate from "@/components/templates/HomeTemplate.vue";
-import { data } from "./mock";
 
 const store = useTaskStore();
-const dados = store.$tasks;
 const windowWidth = ref(window.innerWidth);
 
 onMounted(() => {
@@ -26,20 +24,17 @@ const telaMobile = computed(() => {
   return windowWidth.value < 510 ? true : false;
 });
 
-const initData = () => {
-  data.forEach((value) => {
-    store.ADD_TASK(value);
-  });
-};
+const initData = () => store.GET_TASKS();
 initData();
 provide("isMobile", telaMobile);
 </script>
 
 <template>
   <div class="wrapper">
-    <HomeTemplate :dados="dados" />
+    <HomeTemplate :dados="store.$tasks" />
   </div>
 </template>
+
 <style lang="scss" scoped>
 @import "@/assets/scss/main.scss";
 .wrapper {

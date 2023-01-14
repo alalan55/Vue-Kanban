@@ -1,8 +1,6 @@
 <template>
   <div class="card">
-
     <div class="card__state">
-      
       <div class="left">
         <div
           class="state__ball"
@@ -18,13 +16,21 @@
       </div>
 
       <div class="right">
-        <img
-          src="/img/icons/edit-icon.svg"
-          alt="Ícone de edição"
-          @click="editTask(cardInfo)"
-        />
+        <figure>
+          <img
+            src="/img/icons/delete-icon.svg"
+            alt="Ícone de deletar"
+            @click="deleteTask(cardInfo)"
+          />
+        </figure>
+        <figure>
+          <img
+            src="/img/icons/edit-icon.svg"
+            alt="Ícone de edição"
+            @click="editTask(cardInfo)"
+          />
+        </figure>
       </div>
-      
     </div>
 
     <div class="card__title">
@@ -34,7 +40,7 @@
     </div>
 
     <div class="card__description">
-      <p>{{ cardInfo.text || 'Sem Descrição adicionada' }}</p>
+      <p>{{ cardInfo.description || "Sem Descrição adicionada" }}</p>
     </div>
 
     <teleport to="body">
@@ -57,11 +63,10 @@ export default {
     Modal,
   },
   setup(props) {
-
     const store = useTaskStore();
     const showModal = ref(false);
     const states = ["A fazer", "Em progresso", "Feito"];
-   
+
     const checkState = (state) => {
       return props.cardInfo.state == state ? true : false;
     };
@@ -71,11 +76,13 @@ export default {
       showModal.value = true;
     };
 
+    const deleteTask = (cardInfo) => store.DELETE_TASK(cardInfo);
+
     const close = () => {
       store.RESET_TASK_TO_EDIT();
       showModal.value = false;
     };
-    return { states, checkState, editTask, showModal, close };
+    return { states, checkState, editTask, showModal, close, deleteTask };
   },
 };
 </script>
@@ -130,16 +137,21 @@ export default {
       }
     }
     .right {
-      width: 20px;
-      height: 20px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        cursor: pointer;
+      gap: 0.5rem;
+      figure {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          cursor: pointer;
+        }
       }
     }
   }

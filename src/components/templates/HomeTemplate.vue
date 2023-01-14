@@ -59,7 +59,8 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { useTaskStore } from "@/stores/task";
 import HeaderComponent from "@/components/organisms/HeaderComponent.vue";
 import StateCard from "@/components/molecules/StateCard.vue";
 import CardTask from "@/components/molecules/CardTask.vue";
@@ -73,11 +74,22 @@ export default {
     dados: { type: Array, required: true, default: undefined },
   },
   setup(props) {
-    const arrayData = ref(props.dados);
+    const store = useTaskStore();
+    const arrayData = ref([...props.dados]);
 
     const getList = (state) => {
       return arrayData.value.filter((data) => data.state == state);
     };
+
+    watch(
+      () => props.dados,
+      (nv) => {
+        if (nv) {
+          arrayData.value = [...nv];
+        }
+      },
+      { deep: true }
+    );
 
     const startDrag = (event, item) => {
       event.dataTransfer.dropEffect = "move";
@@ -89,6 +101,8 @@ export default {
       const ITEM_ID = event.dataTransfer.getData("itemID");
       const ITEM = arrayData.value.find((item) => item.id == ITEM_ID);
       ITEM.state = state;
+
+      store.EDIT_TASK(ITEM);
     };
 
     return {
@@ -107,7 +121,7 @@ export default {
   width: 100%;
 
   &__content {
-    height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
     padding: $p-2;
     &__wrapper {
       width: 100%;
@@ -115,7 +129,7 @@ export default {
       flex-wrap: wrap;
       gap: 1.5rem;
       & > .states {
-        flex: 1 1 400px;
+        flex: 1 1 250px;
         height: auto;
       }
     }
