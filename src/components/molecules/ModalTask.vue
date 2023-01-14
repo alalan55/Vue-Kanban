@@ -58,7 +58,7 @@
 <script>
 import { ref } from "vue";
 import { useTaskStore } from "@/stores/task";
-import Button from "../atoms/vkButton.vue"; 
+import Button from "../atoms/vkButton.vue";
 
 export default {
   components: { Button },
@@ -77,8 +77,10 @@ export default {
       loading.value = false;
     };
     const attTask = async () => {
+      loading.value = true;
       const SUCCESS_UPDATE = await store.EDIT_TASK(modalObject.value);
       if (SUCCESS_UPDATE) emit("close");
+      loading.value = false;
     };
     const isObjectEmpty = (obj) => {
       return Object.keys(obj).length === 0;
