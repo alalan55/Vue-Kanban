@@ -4,6 +4,7 @@
     <div class="home__template__content">
       <div class="home__template__content__wrapper">
         <StateCard
+          ref="openZone"
           class="states drop-zone"
           title="Open"
           color="#ffcc00"
@@ -22,7 +23,12 @@
           </template>
           <template v-else>
             <div>
-              <CardSkeleton v-for="i in 3" :key="i" style="margin-bottom: 1rem" />
+              <CardSkeleton
+                v-for="i in openZoneLength || 3"
+                draggable="false"
+                :key="i"
+                style="margin-bottom: 1rem"
+              />
             </div>
           </template>
         </StateCard>
@@ -46,7 +52,12 @@
           </template>
           <template v-else>
             <div>
-              <CardSkeleton v-for="i in 4" :key="i" style="margin-bottom: 1rem" />
+              <CardSkeleton
+                v-for="i in inProgressZoneLength || 4"
+                :key="i"
+                draggable="false"
+                style="margin-bottom: 1rem"
+              />
             </div>
           </template>
         </StateCard>
@@ -71,7 +82,12 @@
 
           <template v-else>
             <div>
-              <CardSkeleton v-for="i in 2" :key="i" style="margin-bottom: 1rem" />
+              <CardSkeleton
+                v-for="i in completedZoneLength || 2"
+                :key="i"
+                draggable="false"
+                style="margin-bottom: 1rem"
+              />
             </div>
           </template>
         </StateCard>
@@ -100,10 +116,15 @@ export default {
   setup(props) {
     const store = useTaskStore();
     const arrayData = ref([...props.dados]);
+    const openZone = ref(null);
+    const openZoneLength = ref(0);
+    const inProgressZoneLength = ref(0);
+    const completedZoneLength = ref(0);
 
     const getList = (state) => {
-      return arrayData.value.filter((data) => data.state == state) || false;
+      return arrayData.value.filter((data) => data.state == state);
     };
+    const getListLength = (state) => getList(state).length;
 
     watch(
       () => props.dados,
@@ -114,6 +135,13 @@ export default {
       },
       { deep: true }
     );
+    watch(arrayData, (nv) => {
+      if (nv.length > 0) {
+        openZoneLength.value = getListLength(0);
+        inProgressZoneLength.value = getListLength(1);
+        completedZoneLength.value = getListLength(2);
+      }
+    });
 
     const startDrag = (event, item) => {
       event.dataTransfer.dropEffect = "move";
@@ -131,9 +159,14 @@ export default {
 
     return {
       getList,
+      getListLength,
       startDrag,
       onDrop,
       store,
+      openZone,
+      openZoneLength,
+      inProgressZoneLength,
+      completedZoneLength,
     };
   },
 };
