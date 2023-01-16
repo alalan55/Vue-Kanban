@@ -6,6 +6,7 @@ export const useTaskStore = defineStore({
     tasks: [],
     task: {},
     taskToEdit: {},
+    loading: false,
   }),
   actions: {
     async ADD_TASK(task) {
@@ -34,11 +35,14 @@ export const useTaskStore = defineStore({
     async GET_TASKS() {
       try {
         this.tasks = [];
+        this.loading = true
         const req = await fetch(import.meta.env.VITE_BASE_URL);
         const res = await req.json();
         this.tasks = res;
+        this.loading = false
       } catch (error) {
         console.error(error);
+        this.loading = false
       }
     },
 
@@ -108,6 +112,9 @@ export const useTaskStore = defineStore({
     $taskToEdit(state) {
       return state.taskToEdit;
     },
+    $loading(state){
+      return state.loading
+    }
   },
 });
 

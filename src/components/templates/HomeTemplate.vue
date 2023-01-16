@@ -11,13 +11,20 @@
           @dragenter.prevent
           @dragover.prevent
         >
-          <CardTask
-            v-for="(item, idx) in getList(0)"
-            :key="idx"
-            :cardInfo="item"
-            draggable="true"
-            @dragstart="startDrag($event, item)"
-          />
+          <template v-if="!store.$loading">
+            <CardTask
+              v-for="(item, idx) in getList(0)"
+              :key="idx"
+              :cardInfo="item"
+              draggable="true"
+              @dragstart="startDrag($event, item)"
+            />
+          </template>
+          <template v-else>
+            <div>
+              <CardSkeleton v-for="i in 3" :key="i" style="margin-bottom: 1rem" />
+            </div>
+          </template>
         </StateCard>
 
         <StateCard
@@ -28,13 +35,20 @@
           @dragenter.prevent
           @dragover.prevent
         >
-          <CardTask
-            v-for="(item, idx) in getList(1)"
-            :key="idx"
-            :cardInfo="item"
-            draggable="true"
-            @dragstart="startDrag($event, item)"
-          />
+          <template v-if="!store.$loading">
+            <CardTask
+              v-for="(item, idx) in getList(1)"
+              :key="idx"
+              :cardInfo="item"
+              draggable="true"
+              @dragstart="startDrag($event, item)"
+            />
+          </template>
+          <template v-else>
+            <div>
+              <CardSkeleton v-for="i in 4" :key="i" style="margin-bottom: 1rem" />
+            </div>
+          </template>
         </StateCard>
 
         <StateCard
@@ -45,13 +59,21 @@
           @dragenter.prevent
           @dragover.prevent
         >
-          <CardTask
-            v-for="(item, idx) in getList(2)"
-            :key="idx"
-            :cardInfo="item"
-            draggable="true"
-            @dragstart="startDrag($event, item)"
-          />
+          <template v-if="!store.$loading">
+            <CardTask
+              v-for="(item, idx) in getList(2)"
+              :key="idx"
+              :cardInfo="item"
+              draggable="true"
+              @dragstart="startDrag($event, item)"
+            />
+          </template>
+
+          <template v-else>
+            <div>
+              <CardSkeleton v-for="i in 2" :key="i" style="margin-bottom: 1rem" />
+            </div>
+          </template>
         </StateCard>
       </div>
     </div>
@@ -64,11 +86,13 @@ import { useTaskStore } from "@/stores/task";
 import HeaderComponent from "@/components/organisms/HeaderComponent.vue";
 import StateCard from "@/components/molecules/StateCard.vue";
 import CardTask from "@/components/molecules/CardTask.vue";
+import CardSkeleton from "../molecules/CardSkeleton.vue";
 export default {
   components: {
     HeaderComponent,
     StateCard,
     CardTask,
+    CardSkeleton,
   },
   props: {
     dados: { type: Array, required: true, default: undefined },
@@ -78,7 +102,7 @@ export default {
     const arrayData = ref([...props.dados]);
 
     const getList = (state) => {
-      return arrayData.value.filter((data) => data.state == state);
+      return arrayData.value.filter((data) => data.state == state) || false;
     };
 
     watch(
@@ -109,6 +133,7 @@ export default {
       getList,
       startDrag,
       onDrop,
+      store,
     };
   },
 };
