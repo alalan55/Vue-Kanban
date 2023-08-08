@@ -65,8 +65,8 @@ export default {
   setup(props, { emit }) {
     const store = useTaskStore();
     const modalObject = ref({});
-    const isTaskEmpty = ref(true);
     const loading = ref(false);
+    const isTaskEmpty = ref(true);
 
     const addTask = async () => {
       loading.value = true;
